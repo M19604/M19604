@@ -1,0 +1,184 @@
+<title>Luke Skutt</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comic Neue">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body {
+        margin: 0;
+        background-color: #1a1a1a;
+        color: #c1c1c1;
+        font-family: "Comic Neue";
+        font-weight: 300;
+        animation: fade .5s linear;
+        overflow: hidden;
+    }
+
+    @keyframes fade {
+        0% {
+            transform: translate(0, 1vw);
+            opacity: 0;
+        }
+        100% {
+            transform: translate(0);
+            opacity: 1;
+        }
+    }
+
+    ::selection {
+        background-color: #6d93c2;
+        color: #1a1a1a;
+    }
+
+    #background {
+        height: 70%;
+        width: 50%;
+        position: absolute;
+        top: 15%;
+        left: 5%;
+    }
+
+    #background .title {
+        font-size: 7vw;
+        width: 100%;
+        height: 20%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    #background .text {
+        font-size: 1.5vw;
+        width: 88%;
+        height: 70%;
+        position: absolute;
+        bottom: 0;
+        right: 10%;
+    }
+
+    .icon {
+        position: absolute;
+        font-size: 2.5vw;
+        top: 2%;
+        right: 5%;
+        transition: .5s;
+        cursor: pointer;
+        color: #a1a1a1;
+    }
+
+    .icon:hover {
+        filter: brightness(125%);
+    }
+
+    #mail {
+        right: 10%;
+    }
+
+    #projectsContainer {
+        height: 50%;
+        width: 25%;
+        border-radius: 1vw;
+        position: absolute;
+        bottom: 15%;
+        right: 5%;
+        background-image: conic-gradient(from var(--a), #578 0%, transparent 15%);
+        animation: rotate 15s linear infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotateX(180deg);
+    }
+
+    @property --a {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 0deg;
+    }
+
+    @keyframes rotate {
+        0% {
+            --a: 360deg;
+        }
+        100% {
+            --a: 0deg;
+        }
+    }
+
+    #projects {
+        background-color: #1a1a1a;
+        width: 97.5%;
+        height: 98%;
+        border-radius: 1vw;
+        transform: rotateX(180deg);
+        box-sizing: border-box;
+        padding-top: .5vw;
+        padding-bottom: .5vw;
+        overflow: auto;
+    }
+
+    .projectsTitle {
+        width: 23%;
+        height: 19%;
+        display: flex;
+        align-items: end;
+        position: absolute;
+        top: 15%;
+        right: 6%;
+        font-size: 3vw;
+    }
+
+    #projects .project {
+        width: 96%;
+        height: 15%;
+        background-color: #1e1e1e;
+        position: relative;
+        left: 2%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        transition: .2s;
+        border: .15vw solid #1e1e1e;
+        cursor: pointer;
+        color: #e1e1e1;
+    }
+
+    #projects .project:nth-child(1){
+        border-radius: 1vw 1vw 0 0;
+    }
+
+    #projects .project:last-child {
+        border-radius: 0 0 1vw 1vw;
+        margin-bottom: .5vw;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    #projects .project:hover {
+        filter: brightness(115%);
+        border: .15vw solid #2e2e2e;
+    }
+</style>
+<div id="github" onclick="window.open('https://github.com/M19604')" class="icon fa fa-github"></div>
+<div id="mail" onclick="window.open('mailto:012578@clioschools.net')" class="icon fa fa-envelope"></div>
+<div id="background">
+    <div class="title">Welcome.</div>
+    <div class="text">My name is Luke Skutt. I make websites for fun. You can see some of my projects I have made or am currently working on at the right.<br><br>You can contact me using the envelope button at the top right.</div>
+</div>
+<div class="projectsTitle">Projects</div>
+<div id="projectsContainer">
+    <div id="projects"></div>
+</div>
+<script>
+    fetch("https://api.github.com/users/M19604/repos").then(e => {
+        return e.json();
+    }).then(data => {
+        for (let i = 0; i < data.length; i++) {
+            var project = document.createElement("div");
+            project.className = "project";
+            project.textContent = data[i]["name"];
+            project.onclick = function() {window.open(`https://m19604.github.io/${data[i]["name"]}`)}
+            document.getElementById("projects").appendChild(project);
+        }
+    })
+</script>
